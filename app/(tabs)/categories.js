@@ -1,4 +1,3 @@
-
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import {
@@ -9,8 +8,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-
-
 
 const menProducts = [
   {
@@ -46,7 +43,6 @@ const womenProducts = [
   },
 ];
 
-
 export default function Categories() {
   const [activeTab, setActiveTab] = useState("men");
   const [favorites, setFavorites] = useState([]);
@@ -64,7 +60,7 @@ export default function Categories() {
   return (
     <View style={styles.container}>
 
-      {/* Top Tabs */}
+      {/* 🔥 PREMIUM TABS UI */}
       <View style={styles.tabContainer}>
         <TouchableOpacity
           style={[
@@ -73,7 +69,14 @@ export default function Categories() {
           ]}
           onPress={() => setActiveTab("men")}
         >
-          <Text style={styles.tabText}>Men Fashion</Text>
+          <Text
+            style={[
+              styles.tabText,
+              activeTab === "men" && styles.activeTabText,
+            ]}
+          >
+            Men
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -83,41 +86,55 @@ export default function Categories() {
           ]}
           onPress={() => setActiveTab("women")}
         >
-          <Text style={styles.tabText}>Women Fashion</Text>
+          <Text
+            style={[
+              styles.tabText,
+              activeTab === "women" && styles.activeTabText,
+            ]}
+          >
+            Women
+          </Text>
         </TouchableOpacity>
       </View>
 
-      {/* Product List */}
+      {/* 🔥 PREMIUM PRODUCT CARD */}
       <FlatList
         data={data}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.card}>
+
+            {/* 🔥 IMAGE */}
             <Image source={item.image} style={styles.image} />
 
-            <View style={{ flex: 1 }}>
+            {/* 🔥 DETAILS */}
+            <View style={styles.details}>
               <Text style={styles.name}>{item.name}</Text>
               <Text style={styles.desc}>{item.desc}</Text>
-              <Text style={styles.price}>{item.price}</Text>
+
+              <View style={styles.bottomRow}>
+                <Text style={styles.price}>{item.price}</Text>
+
+                {/* 🔥 HEART ICON */}
+                <TouchableOpacity
+                  onPress={() => toggleFavorite(item.id)}
+                >
+                  <Ionicons
+                    name={
+                      favorites.includes(item.id)
+                        ? "heart"
+                        : "heart-outline"
+                    }
+                    size={20}
+                    color={
+                      favorites.includes(item.id)
+                        ? "red"
+                        : "#FFD700"
+                    }
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
-            
-            <TouchableOpacity
-              onPress={() => toggleFavorite(item.id)}
-            >
-              <Ionicons
-                name={
-                  favorites.includes(item.id)
-                    ? "heart"
-                    : "heart-outline"
-                }
-                size={24}
-                color={
-                  favorites.includes(item.id)
-                    ? "red"
-                    : "#FFD700"
-                }
-              />
-            </TouchableOpacity>
           </View>
         )}
       />
@@ -129,58 +146,79 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    padding: 10,
+    padding: 12,
   },
+
+  /* 🔥 TABS */
   tabContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    marginBottom: 15,
+    marginBottom: 20,
   },
   tabButton: {
-    padding: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+    borderRadius: 25,
+    backgroundColor: "#111",
     marginHorizontal: 5,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: "#ffdc16",
   },
   activeTab: {
-    backgroundColor: "#000000",
+    backgroundColor: "#FFD700",
   },
   tabText: {
-    color: "#ffffff",
+    color: "#FFD700",
+    fontWeight: "600",
+  },
+  activeTabText: {
+    color: "#000",
     fontWeight: "bold",
   },
+
+  /* 🔥 CARD */
   card: {
     flexDirection: "row",
-    backgroundColor: "#272626",
-    padding: 10,
-    borderRadius: 10,
-    marginBottom: 10,
+    backgroundColor: "#111",
+    padding: 12,
+    borderRadius: 15,
+    marginBottom: 12,
     alignItems: "center",
+
+    // 🔥 Shadow (premium feel)
+    elevation: 5,
   },
+
   image: {
-    width: 80,
-    height: 80,
-    borderRadius: 10,
-    marginRight: 10,
+    width: 85,
+    height: 85,
+    borderRadius: 12,
   },
+
+  details: {
+    flex: 1,
+    marginLeft: 12,
+  },
+
   name: {
     color: "#FFD700",
     fontWeight: "bold",
+    fontSize: 15,
   },
   desc: {
-    color: "#ffffff",
+    color: "#ccc",
     fontSize: 12,
+    marginTop: 2,
   },
+
+  bottomRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 6,
+  },
+
   price: {
     color: "#FFD700",
-    marginTop: 5,
+    fontWeight: "bold",
+    fontSize: 14,
   },
-  cartButton: {
-  backgroundColor: "#FFD700",
-  padding: 6,
-  borderRadius: 6,
-  marginTop: 5,
-  alignItems: "center",
-},
 });

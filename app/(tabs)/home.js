@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { CartContext } from "../../context/CartContext";
 
 const { width } = Dimensions.get("window");
@@ -50,6 +51,23 @@ const products = [
     oldPrice: "Rs 1999",
     category: "Bags",
     image: require("../../assets/images/bag.jpg"),
+  },
+  
+  {
+    id: "5",
+    name: "Makeup Kit",
+    price: "Rs 3500",
+    oldPrice: "Rs 5000",
+    category: "Makeup",
+    image: require("../../assets/images/makeup2.jpg"),
+  },
+  {
+    id: "6",
+    name: "Lipstick Set",
+    price: "Rs 1200",
+    oldPrice: "Rs 2000",
+    category: "Makeup",
+    image: require("../../assets/images/makeup1.jpg"),
   },
 ];
 
@@ -126,6 +144,7 @@ export default function Home() {
   const categories = ["All", "Shoes", "Watches", "Bags", "Makeup"];
 
   return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#000" }}>
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {/* Header */}
       <Text style={styles.header}>MuntahaCartPK</Text>
@@ -272,12 +291,13 @@ export default function Home() {
         <Text style={styles.notFoundText}>Product not found 😔</Text>
       )}
     </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#000", padding: 15 },
-  header: { color: "#ffd902", fontSize: 26, fontWeight: "bold", marginBottom: 15, textAlign: "center" },
+  header: { color: "#ffd902", fontSize: 26, fontWeight: "bold", marginBottom: 15, marginTop: 5, textAlign: "center" },
   searchContainer: { flexDirection: "row", backgroundColor: "#FFD700", padding: 12, borderRadius: 15, alignItems: "center", marginBottom: 20 },
   searchInput: { marginLeft: 10, flex: 1 },
   sliderImage: { width: width - 30, height: 180, borderRadius: 10, marginRight: 15, resizeMode: "cover" },
